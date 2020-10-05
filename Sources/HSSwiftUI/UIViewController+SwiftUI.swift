@@ -11,7 +11,6 @@
 import Foundation
 import SwiftUI
 import UIKit
-import PureLayout
 
 public extension UIViewController {
     @discardableResult
@@ -23,7 +22,16 @@ public extension UIViewController {
         container.addSubview(childVC.view)
         childVC.didMove(toParent: self)
         
-        childVC.view.autoPinEdgesToSuperviewEdges()
+        if let view = childVC.view, let superview = view.superview {
+            let constraints = [
+                view.leftAnchor.constraint(equalTo: superview.leftAnchor),
+                view.rightAnchor.constraint(equalTo: superview.rightAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
+
         
         return childVC
     }
