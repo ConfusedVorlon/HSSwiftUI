@@ -13,7 +13,7 @@ import SwiftUI
 import UIKit
 import PureLayout
 
-extension UIViewController {
+public extension UIViewController {
     @discardableResult
     func insert<Content>(swiftUIView rootView:Content, inUIView container:UIView) -> UIHostingController<Content> where Content : View {
         let childVC = UIHostingController(rootView: rootView)
