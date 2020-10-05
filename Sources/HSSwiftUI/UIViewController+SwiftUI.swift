@@ -5,7 +5,7 @@
 //  Created by Rob Jonson on 27/01/2020.
 //  Copyright © 2020 HobbyistSoftware. All rights reserved.
 //
-#if canImport(UIKit) && canImport(PureLayout)
+#if canImport(UIKit)
 
 
 import Foundation
