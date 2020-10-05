@@ -42,7 +42,7 @@ public struct MultilineTextField: View {
         self._showingPlaceholder = State<Bool>(initialValue: self.text.isEmpty)
     }
 
-    var body: some View {
+    public var body: some View {
         UITextViewWrapper(text: self.internalText, calculatedHeight: $dynamicHeight, onDone: onDone,onChange:onChange)
             .frame(minHeight: dynamicHeight, maxHeight: dynamicHeight)
             .overlay(placeholderView, alignment: .topLeading)

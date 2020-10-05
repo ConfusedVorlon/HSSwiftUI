@@ -39,8 +39,13 @@ import Foundation
 import SwiftUI
 
 public struct GeometryPreferenceReader<K: PreferenceKey, V> where K.Value == V {
-    let key: K.Type
-    let value: (GeometryProxy) -> V
+    public let key: K.Type
+    public let value: (GeometryProxy) -> V
+    
+    public init(key: K.Type, value: @escaping (GeometryProxy) -> V) {
+        self.key = key
+        self.value = value
+    }
 }
 
 extension GeometryPreferenceReader: ViewModifier {

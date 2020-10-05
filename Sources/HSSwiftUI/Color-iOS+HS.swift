@@ -13,7 +13,7 @@ import UIKit
 
 
 public extension UIColor {
-    public var color:Color {
+    var color:Color {
         return Color(self)
     }
 }
@@ -21,7 +21,7 @@ public extension UIColor {
 public extension Color {
 
     
-    public static var systemGray: Color { Color(UIColor.systemGray) }
+    static var systemGray: Color { Color(UIColor.systemGray) }
 
     
     /* The numbered variations, systemGray2 through systemGray6, are grays which increasingly
@@ -33,46 +33,46 @@ public extension Color {
      *                               systemGray2 is darker than that, and so on.
      */
     @available(iOS 13.0, *)
-    public static var systemGray2: Color { Color(UIColor.systemGray2) }
+    static var systemGray2: Color { Color(UIColor.systemGray2) }
 
     @available(iOS 13.0, *)
-    public static var systemGray3: Color { Color(UIColor.systemGray3) }
+    static var systemGray3: Color { Color(UIColor.systemGray3) }
 
     @available(iOS 13.0, *)
-    public static var systemGray4: Color { Color(UIColor.systemGray4) }
+    static var systemGray4: Color { Color(UIColor.systemGray4) }
 
     @available(iOS 13.0, *)
-    public static var systemGray5: Color { Color(UIColor.systemGray5) }
+    static var systemGray5: Color { Color(UIColor.systemGray5) }
 
     @available(iOS 13.0, *)
-    public static var systemGray6: Color { Color(UIColor.systemGray6) }
+    static var systemGray6: Color { Color(UIColor.systemGray6) }
 
     
     /* Foreground colors for static text and related elements.
      */
     @available(iOS 13.0, *)
-    public static var label: Color { Color(UIColor.label) }
+    static var label: Color { Color(UIColor.label) }
 
     @available(iOS 13.0, *)
-    public static var secondaryLabel: Color { Color(UIColor.secondaryLabel) }
+    static var secondaryLabel: Color { Color(UIColor.secondaryLabel) }
 
     @available(iOS 13.0, *)
-    public static var tertiaryLabel: Color { Color(UIColor.tertiaryLabel) }
+    static var tertiaryLabel: Color { Color(UIColor.tertiaryLabel) }
 
     @available(iOS 13.0, *)
-    public static var quaternaryLabel: Color { Color(UIColor.quaternaryLabel) }
+    static var quaternaryLabel: Color { Color(UIColor.quaternaryLabel) }
 
     
     /* Foreground color for standard system links.
      */
     @available(iOS 13.0, *)
-    public static var link: Color { Color(UIColor.link) }
+    static var link: Color { Color(UIColor.link) }
 
     
     /* Foreground color for placeholder text in controls or text fields or text views.
      */
     @available(iOS 13.0, *)
-    public static var placeholderText: Color { Color(UIColor.placeholderText) }
+    static var placeholderText: Color { Color(UIColor.placeholderText) }
 
     
     /* Foreground colors for separators (thin border or divider lines).
@@ -81,10 +81,10 @@ public extension Color {
      * completely cover anything behind it. Depending on the situation, you may need one or the other.
      */
     @available(iOS 13.0, *)
-    public static var separator: Color { Color(UIColor.separator) }
+    static var separator: Color { Color(UIColor.separator) }
 
     @available(iOS 13.0, *)
-    public static var opaqueSeparator: Color { Color(UIColor.opaqueSeparator) }
+    static var opaqueSeparator: Color { Color(UIColor.opaqueSeparator) }
 
     
     /* We provide two design systems (also known as "stacks") for structuring an iOS app's backgrounds.
@@ -102,13 +102,13 @@ public extension Color {
      *    primary background in light mode.
      */
     @available(iOS 13.0, *)
-    public static var systemBackground: Color { Color(UIColor.systemBackground) }
+    static var systemBackground: Color { Color(UIColor.systemBackground) }
 
     @available(iOS 13.0, *)
-    public static var secondarySystemBackground: Color { Color(UIColor.secondarySystemBackground) }
+    static var secondarySystemBackground: Color { Color(UIColor.secondarySystemBackground) }
 
     @available(iOS 13.0, *)
-    public static var tertiarySystemBackground: Color { Color(UIColor.tertiarySystemBackground) }
+    static var tertiarySystemBackground: Color { Color(UIColor.tertiarySystemBackground) }
 
     
     /* 2. systemGroupedBackground
@@ -117,13 +117,13 @@ public extension Color {
      *    colors in places where a table view wouldn't make sense.
      */
     @available(iOS 13.0, *)
-    public static var systemGroupedBackground: Color { Color(UIColor.systemGroupedBackground) }
+    static var systemGroupedBackground: Color { Color(UIColor.systemGroupedBackground) }
 
     @available(iOS 13.0, *)
-    public static var secondarySystemGroupedBackground: Color { Color(UIColor.secondarySystemGroupedBackground) }
+    static var secondarySystemGroupedBackground: Color { Color(UIColor.secondarySystemGroupedBackground) }
 
     @available(iOS 13.0, *)
-    public static var tertiarySystemGroupedBackground: Color { Color(UIColor.tertiarySystemGroupedBackground) }
+    static var tertiarySystemGroupedBackground: Color { Color(UIColor.tertiarySystemGroupedBackground) }
 
     
     /* Fill colors for UI elements.
@@ -133,28 +133,28 @@ public extension Color {
      * Example: The track of a slider.
      */
     @available(iOS 13.0, *)
-    public static var systemFill: Color { Color(UIColor.systemFill) }
+    static var systemFill: Color { Color(UIColor.systemFill) }
 
     
     /* secondarySystemFillColor is appropriate for filling medium-size shapes.
      * Example: The background of a switch.
      */
     @available(iOS 13.0, *)
-    public static var secondarySystemFill: Color { Color(UIColor.secondarySystemFill) }
+    static var secondarySystemFill: Color { Color(UIColor.secondarySystemFill) }
 
     
     /* tertiarySystemFillColor is appropriate for filling large shapes.
      * Examples: Input fields, search bars, buttons.
      */
     @available(iOS 13.0, *)
-    public static var tertiarySystemFill: Color { Color(UIColor.tertiarySystemFill) }
+    static var tertiarySystemFill: Color { Color(UIColor.tertiarySystemFill) }
 
     
     /* quaternarySystemFillColor is appropriate for filling large areas containing complex content.
      * Example: Expanded table cells.
      */
     @available(iOS 13.0, *)
-    public static var quaternarySystemFill: Color { Color(UIColor.quaternarySystemFill) }
+    static var quaternarySystemFill: Color { Color(UIColor.quaternarySystemFill) }
 }
 
 #endif
