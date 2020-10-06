@@ -23,6 +23,7 @@ public extension UIViewController {
         childVC.didMove(toParent: self)
         
         if let view = childVC.view, let superview = view.superview {
+            view.translatesAutoresizingMaskIntoConstraints = false;
             let constraints = [
                 view.leftAnchor.constraint(equalTo: superview.leftAnchor),
                 view.rightAnchor.constraint(equalTo: superview.rightAnchor),
