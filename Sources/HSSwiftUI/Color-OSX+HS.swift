@@ -6,7 +6,7 @@
 //  Copyright © 2020 HobbyistSoftware. All rights reserved.
 //
 
-#if canImport(AppKit)
+#if os(macOS)
 
 import Foundation
 import SwiftUI
