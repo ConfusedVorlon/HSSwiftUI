@@ -19,17 +19,17 @@ import SwiftUI
     public typealias HostingController = NSHostingController
 #endif
 
-class HSHostWrapper:ObservableObject {
-    weak var controller:ViewController?
+public class HSHostWrapper:ObservableObject {
+    public weak var controller:ViewController?
 }
 
 
 /// allows root view (and children) to access the hosting controller by adding
 /// @EnvironmentObject var host:HSHostWrapper
 /// then e.g. host.controller?.dismiss()
-class HSHostingController<Content>:HostingController<ModifiedContent<Content,SwiftUI._EnvironmentKeyWritingModifier<HSHostWrapper?>>> where Content : View {
+public class HSHostingController<Content>:HostingController<ModifiedContent<Content,SwiftUI._EnvironmentKeyWritingModifier<HSHostWrapper?>>> where Content : View {
     
-    init(rootView:Content) {
+    public init(rootView:Content) {
         let container = HSHostWrapper()
         let modified = rootView.environmentObject(container) as! ModifiedContent<Content, _EnvironmentKeyWritingModifier<HSHostWrapper?>>
         super.init(rootView: modified)
