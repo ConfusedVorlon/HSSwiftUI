@@ -20,9 +20,9 @@ import SwiftUI
 // and call the original object with
 // isolatedObservable.object.someMethod()
 class IsolatedObservable<T:ObservableObject>: ObservableObject {
-    var object: T
+    public var object: T
 
-    init(_ object: T) {
+    public init(_ object: T) {
         self.object = object
     }
 }
@@ -30,7 +30,7 @@ class IsolatedObservable<T:ObservableObject>: ObservableObject {
 
 extension View {
     //convenience method to add an object both as a regular environment object, and also in an isolated holder
-    func environmentAndIsolatedObject<T:ObservableObject>(_ object: T) -> some View {
+    public func environmentAndIsolatedObject<T:ObservableObject>(_ object: T) -> some View {
         modifier(EnvironmentObjectAndIsolated(object: object))
     }
 }
