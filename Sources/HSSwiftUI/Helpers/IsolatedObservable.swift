@@ -19,7 +19,7 @@ import SwiftUI
 // @EnvironmentObject var isolatedObservable:IsolatedObservable<MyObservable>
 // and call the original object with
 // isolatedObservable.object.someMethod()
-class IsolatedObservable<T:ObservableObject>: ObservableObject {
+public class IsolatedObservable<T:ObservableObject>: ObservableObject {
     public var object: T
 
     public init(_ object: T) {
