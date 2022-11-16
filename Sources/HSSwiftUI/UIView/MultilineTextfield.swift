@@ -22,6 +22,7 @@ public struct MultilineTextField: View {
     private var placeholder: String
     private var onDone: (() -> Void)?
     private var onChange: (() -> Void)?
+    private var customise:((UITextView)->Void)?
 
     @Binding private var text: String
     private var internalText: Binding<String> {
@@ -34,16 +35,27 @@ public struct MultilineTextField: View {
     @State private var dynamicHeight: CGFloat = 100
     @State private var showingPlaceholder = false
 
-    public init (_ placeholder: String = "", text: Binding<String>, onDone: (() -> Void)? = nil,onChange: (() -> Void)? = nil) {
+    public init (_ placeholder: String = "",
+                 text: Binding<String>,
+                 onDone: (() -> Void)? = nil,
+                 onChange: (() -> Void)? = nil,
+                 customise:((UITextView)->Void)? = nil
+    ) {
         self.placeholder = placeholder
         self.onDone = onDone
         self.onChange = onChange
+        self.customise = customise
         self._text = text
         self._showingPlaceholder = State<Bool>(initialValue: self.text.isEmpty)
     }
 
     public var body: some View {
-        UITextViewWrapper(text: self.internalText, calculatedHeight: $dynamicHeight, onDone: onDone,onChange:onChange)
+        UITextViewWrapper(text: self.internalText,
+                          calculatedHeight: $dynamicHeight,
+                          onDone: onDone,
+                          onChange:onChange,
+                          customise: customise
+        )
             .frame(minHeight: dynamicHeight, maxHeight: dynamicHeight)
             .overlay(placeholderView, alignment: .topLeading)
     }
@@ -66,6 +78,8 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
     @Binding var calculatedHeight: CGFloat
     var onDone: (() -> Void)?
     var onChange: (() -> Void)?
+    var customise:((UITextView)->Void)?
+    
 
     func makeUIView(context: UIViewRepresentableContext<UITextViewWrapper>) -> UITextView {
         let textField = UITextView()
@@ -81,6 +95,7 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
         }
 
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        customise?(textField)
         return textField
     }
 
