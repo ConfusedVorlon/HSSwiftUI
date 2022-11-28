@@ -16,24 +16,6 @@ public extension View {
         return frame(width: size.width, height: size.height, alignment: alignment)
     }
 
-    func fillParent(alignment:Alignment = .center) -> some View {
-        return GeometryReader { geometry in
-            self
-                .frame(size: geometry.size, alignment: alignment)
-        }
-    }
-    
-
-    //https://forums.swift.org/t/conditionally-apply-modifier-in-swiftui/32815/16
-//    @ViewBuilder
-//    func `if`<T>(_ condition: Bool, transform: (Self) -> T) -> some View where T : View {
-//        if condition {
-//            transform(self)
-//        } else {
-//            self
-//        }
-//    }
-    
 
     func previewLayout(_ size: CGSize) -> some View {
         return self.previewLayout(.fixed(width: size.width, height: size.height))
@@ -45,24 +27,3 @@ public extension View {
 
 }
 
-
-//extension View {
-//
-//    func run(_ code: @escaping () -> ()) -> some View {
-//        modifier(CodeModifier(code: code))
-//    }
-//}
-//
-//private struct CodeModifier: ViewModifier {
-//
-//    fileprivate let code: () -> ()
-//
-//    func check() -> CGSize {
-//        code()
-//        return .zero
-//    }
-//
-//    fileprivate func body(content: Content) -> some View {
-//        return content.offset(check())
-//    }
-//}
