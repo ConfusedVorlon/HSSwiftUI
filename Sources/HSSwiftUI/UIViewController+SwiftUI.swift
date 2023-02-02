@@ -13,8 +13,10 @@ import SwiftUI
 import UIKit
 
 public extension UIViewController {
+    
     @discardableResult
-    func insert<Content>(swiftUIView rootView:Content, inUIView container:UIView) -> UIHostingController<Content> where Content : View {
+    func insert<Content:View>(swiftUIView rootView:Content,
+                         inUIView container:UIView) -> UIHostingController<Content> {
         let childVC = UIHostingController(rootView: rootView)
         
         self.addChild(childVC)
@@ -37,10 +39,20 @@ public extension UIViewController {
         return childVC
     }
     
-    static func with<Content>(swiftUIView:Content) -> UIViewController where Content : View {
+    
+    static func with<Content: View>(swiftUIView:Content) -> UIViewController  {
         let vc = UIViewController.init(nibName: nil, bundle: nil)
         vc.insert(swiftUIView: swiftUIView, inUIView: vc.view)
         return vc
+    }
+    
+    /// Build a UIViewController which presents a SwiftUI View
+    /// - Parameter builder: The builder gets a reference to the ViewController. This is useful for e.g. dismissal
+    /// be careful not to strongly retain this!
+    convenience init<Content:View>(@ViewBuilder _ builder: @MainActor(UIViewController)->Content) {
+        self.init(nibName: nil, bundle: nil)
+        let swiftUIView = builder(self)
+        self.insert(swiftUIView: swiftUIView, inUIView: self.view)
     }
 }
 
