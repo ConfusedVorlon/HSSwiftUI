@@ -18,6 +18,12 @@ public extension UIColor {
     }
 }
 
+public extension Extensions {
+    //Adds semantic colour support, e.g. Color.label (iOS0, color.secondaryLabelColor (macOS)
+    class Color {
+    }
+}
+
 public extension Color {
 
     

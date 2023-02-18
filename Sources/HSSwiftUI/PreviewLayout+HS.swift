@@ -13,3 +13,15 @@ public extension PreviewLayout {
         self = PreviewLayout.fixed(width: fixedSize.width, height: fixedSize.height)
     }
 }
+
+
+public extension Extensions {
+    
+    class PreviewLayout {
+        
+        /// Convenience initialiser
+        public init(fixedSize:CGSize) {
+            
+        }
+    }
+}

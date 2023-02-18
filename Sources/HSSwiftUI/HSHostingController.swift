@@ -23,10 +23,16 @@ public class HSHostWrapper:ObservableObject {
     public weak var controller:ViewController?
 }
 
-
-/// allows root view (and children) to access the hosting controller by adding
-/// @EnvironmentObject var host:HSHostWrapper
-/// then e.g. host.controller?.dismiss()
+/**
+allows root view (and children) to access the hosting controller by adding
+ 
+    @EnvironmentObject var host:HSHostWrapper
+ 
+which can then be used like
+ 
+    host.controller?.dismiss()
+ */
+@available(*, deprecated, message: "Use the UIViewController init(@ViewBuilder _ builder:...) method instead")
 public class HSHostingController<Content>:HostingController<ModifiedContent<Content,SwiftUI._EnvironmentKeyWritingModifier<HSHostWrapper?>>> where Content : View {
     
     public init(rootView:Content) {

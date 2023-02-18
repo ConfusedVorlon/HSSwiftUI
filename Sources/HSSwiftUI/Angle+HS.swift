@@ -31,4 +31,11 @@ public extension Angle {
     }
 }
 
+public extension Extensions {
+    
+    /// Adds multiplication support to Angles.
+    /// e.g. Angle(degrees:60) * 2
+    class Angle { }
+}
+
 #endif

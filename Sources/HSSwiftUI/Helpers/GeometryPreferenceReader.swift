@@ -8,29 +8,7 @@
 
 // https://finestructure.co/blog/2020/1/20/swiftui-equal-widths-view-constraints
 
-/*
- 
- to use:
- 1) define an enum and a key
- the type is defined in the key: attribute
- 
- enum LatestHeightWidth: Preference {}
- let latestHeight = GeometryPreferenceReader(
-     key: LatestCGFloat<LatestHeightWidth>.self,
-     value: { $0.size.height }
- )
- 
- 2) read it somewhere
- .read(latestHeight)
- 
- 3) write it out to a @State
- 
- @State var height: CGFloat? = nil
- 
- .assignPreference(for: latestHeight.key, to: $height)
- 
- 
- */
+
 
 
 
@@ -38,6 +16,48 @@
 import Foundation
 import SwiftUI
 
+
+/**
+Read the geometry of a view and pass it up the hierarchy using preferences
+ 
+to use:
+ 1) define an enum and a key
+ 
+The key attribute defines the type of value that you are measuring
+ 
+ - LatestCGFloat
+ - MaxCGFloat
+ - LatestCGRect
+ - LatestEdgeInsets
+ 
+ The value attribute should transform a GeometryProxy value into the value you are measuring
+ 
+ ```
+ //My key type is LatestHeightWidth - this is an identifier specific to my app/view
+ enum LatestHeightWidth: Preference {}
+     //latestHeight is my own variable name which I will read
+     let latestHeight = GeometryPreferenceReader(
+         //I want the latest value of a CGFloat. The generic type matches my key type
+         key: LatestCGFloat<LatestHeightWidth>.self,
+         //I can get the value I want from the GeometryProxy of the view with this transformer
+         value: { $0.size.height }
+    )
+ ```
+ 
+ 2) read it somewhere (apply this modifier to the view you want to read values _from_
+ ```
+ //note I'm reading latestHeight which is the variable name I defined in my key
+.read(latestHeight)
+ ```
+ 
+ 3) write it out to a @State
+ ```
+@State var height: CGFloat? = nil
+
+//apply this modifier to a container higher up in the view hierarchy
+.assignPreference(for: latestHeight.key, to: $height)
+ ```
+*/
 public struct GeometryPreferenceReader<K: PreferenceKey, V> where K.Value == V {
     public let key: K.Type
     public let value: (GeometryProxy) -> V
@@ -48,18 +68,11 @@ public struct GeometryPreferenceReader<K: PreferenceKey, V> where K.Value == V {
     }
 }
 
-extension GeometryPreferenceReader: ViewModifier {
-    public func body(content: Content) -> some View {
-        content
-            .background(GeometryReader {
-                Color.clear.preference(key: self.key,
-                                       value: self.value($0))
-            })
-    }
-}
+
 
 public protocol Preference {}
 
+/// Use this key type to measure a single value such as width or x-position
 public struct LatestCGFloat<T: Preference>: PreferenceKey {
     public static var defaultValue: CGFloat? {nil}
     public static func reduce(value: inout Value, nextValue: () -> Value) {
@@ -73,6 +86,7 @@ public struct LatestCGFloat<T: Preference>: PreferenceKey {
     public typealias Value = CGFloat?
 }
 
+/// Use this key type to measure a maximum value over time
 public struct MaxCGFloat<T: Preference>: PreferenceKey {
     public static var defaultValue: CGFloat? {nil}
     public static func reduce(value: inout Value, nextValue: () -> Value) {
@@ -83,6 +97,7 @@ public struct MaxCGFloat<T: Preference>: PreferenceKey {
     public typealias Value = CGFloat?
 }
 
+/// Use this key type to measure a rect such as frame
 public struct LatestCGRect<T: Preference>: PreferenceKey {
     public static var defaultValue: CGRect? {nil}
     public static func reduce(value: inout Value, nextValue: () -> Value) {
@@ -92,6 +107,7 @@ public struct LatestCGRect<T: Preference>: PreferenceKey {
     public typealias Value = CGRect?
 }
 
+/// Use this key type to measure a edgeInsets (e.g. safe area)
 public struct LatestEdgeInsets<T: Preference>: PreferenceKey {
     public static var defaultValue: EdgeInsets? {nil}
     public static func reduce(value: inout Value, nextValue: () -> Value) {
@@ -104,6 +120,7 @@ public struct LatestEdgeInsets<T: Preference>: PreferenceKey {
 
 
 public extension View {
+    
     func assignPreference<K: PreferenceKey>(
         for key: K.Type,
         to binding: Binding<CGFloat?>) -> some View where K.Value == CGFloat? {
@@ -136,5 +153,19 @@ public extension View {
     
     func read<K: PreferenceKey, V>(_ preference: GeometryPreferenceReader<K, V>) -> some View {
         modifier(preference)
+    }
+}
+
+
+
+// The view modifier applies a clear background to the view you are observing
+// The background is wrapped in a GeometryReader to actually measure the size
+extension GeometryPreferenceReader: ViewModifier {
+    public func body(content: Content) -> some View {
+        content
+            .background(GeometryReader {
+                Color.clear.preference(key: self.key,
+                                       value: self.value($0))
+            })
     }
 }

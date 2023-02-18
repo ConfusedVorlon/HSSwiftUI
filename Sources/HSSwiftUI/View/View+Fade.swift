@@ -11,7 +11,7 @@ import SwiftUI
 public extension View {
 
     /// Whether the view is hidden.
-    /// - Parameter hide: Set to `true` to hide the view. Set to `false` to show the view.
+    /// - Parameter fade: Set to `true` to hide the view. Set to `false` to show the view.
     /// - Parameter shrinkSize: size when hidden or nil to ignore
     /// - Returns: view (or not)
     func fadeIf(_ fade: Bool, fadedSize:CGSize? = nil) -> some View {

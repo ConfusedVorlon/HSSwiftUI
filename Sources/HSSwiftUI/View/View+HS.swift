@@ -16,7 +16,6 @@ public extension View {
         return frame(width: size.width, height: size.height, alignment: alignment)
     }
 
-
     func previewLayout(_ size: CGSize) -> some View {
         return self.previewLayout(.fixed(width: size.width, height: size.height))
     }
