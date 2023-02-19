@@ -1,4 +1,7 @@
 version: 1
 builder:
   configs:
-    - documentation_targets: [HSSwiftUI]
+    - platform: ios
+      documentation_targets: [Target]
+    - platform: macos
+      documentation_targets: [Target]
