@@ -19,6 +19,7 @@ import SwiftUI
     public typealias HostingController = NSHostingController
 #endif
 
+@available(*, deprecated, message: "Used by HSHostingController which is deprecated")
 public class HSHostWrapper:ObservableObject {
     public weak var controller:ViewController?
 }
