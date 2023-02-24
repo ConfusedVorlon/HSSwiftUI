@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     @available(macOS 11.0, *)
     func clearTextButton(text:Binding<String>) -> some View {
         modifier(ClearButton(text: text))
