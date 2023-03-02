@@ -48,6 +48,7 @@ public extension UIViewController {
     /// Create a UIViewController with a swiftUI view as the first child of the main view
     /// - Parameter swiftUIView: swiftUIView
     /// - Returns: the UIViewController
+    @available(*, deprecated, message: "use the init with ViewBuilder methods instead")
     static func with<Content: View>(swiftUIView:Content) -> UIViewController  {
         let vc = UIViewController.init(nibName: nil, bundle: nil)
         vc.insert(swiftUIView: swiftUIView, inUIView: vc.view)
@@ -61,6 +62,14 @@ public extension UIViewController {
     convenience init<Content:View>(@ViewBuilder _ builder: @MainActor(UIViewController)->Content) {
         self.init(nibName: nil, bundle: nil)
         let swiftUIView = builder(self)
+        self.insert(swiftUIView: swiftUIView, inUIView: self.view)
+    }
+    
+    /// Build a UIViewController which presents a SwiftUI View
+    /// - Parameter builder: no reference provided to the builder for super-simplicity
+    convenience init<Content:View>(@ViewBuilder _ builder: ()->Content) {
+        self.init(nibName: nil, bundle: nil)
+        let swiftUIView = builder()
         self.insert(swiftUIView: swiftUIView, inUIView: self.view)
     }
 }
