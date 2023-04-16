@@ -55,7 +55,7 @@ private struct KeyboardVisibility:ViewModifier {
                     .map { _ in true },
                 NotificationCenter
                     .default
-                    .publisher(for: UIResponder.keyboardWillHideNotification)
+                    .publisher(for: UIResponder.keyboardDidHideNotification)
                     .map { _ in false })
             .debounce(for: .seconds(0.1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
