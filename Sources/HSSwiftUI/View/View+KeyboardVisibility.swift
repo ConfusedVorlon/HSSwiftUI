@@ -27,6 +27,8 @@ private struct KeyboardShowingEnvironmentKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    
+    /// Apply addKeyboardVisibilityToEnvironment near the top of your view hierarchy to enable this environment key
     var keyboardShowing: Bool {
         get { self[KeyboardShowingEnvironmentKey.self] }
         set { self[KeyboardShowingEnvironmentKey.self] = newValue }

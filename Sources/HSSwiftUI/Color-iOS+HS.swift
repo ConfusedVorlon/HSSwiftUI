@@ -13,17 +13,13 @@ import UIKit
 
 
 public extension UIColor {
+    
     var color:Color {
         return Color(self)
     }
 }
 
-public extension Extensions {
-    //Adds semantic colour support, e.g. Color.label (iOS0, color.secondaryLabelColor (macOS)
-    class Color {
-    }
-}
-
+//Adds semantic colour support, e.g. Color.label (iOS0, color.secondaryLabelColor (macOS)
 public extension Color {
 
     

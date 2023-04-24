@@ -10,27 +10,35 @@
 import SwiftUI
 
 public extension View {
+
+    
+    /// Add a clear button to a View. Most useful for TextField.
+    /// Button only shows when text is non-nil
+    /// - Parameter text: binding to text that can be cleared
+    /// - Returns: modified view
+    ///
+    /// Example
+    /**
+     
+     ```
+     struct TestView: View {
+         @State var text:String
+         
+         var body: some View {
+             TextField("Enter Text", text: $text)
+                 .clearTextButton(text: $text)
+                 .padding(5)
+                 .border(.gray)
+         }
+     }
+     ```
+     */
     @available(macOS 11.0, *)
     func clearTextButton(text:Binding<String>) -> some View {
         modifier(ClearButton(text: text))
     }
 }
 
-/** Add a clear button to a TextField
- 
- ```
- struct TestView: View {
-     @State var text:String
-     
-     var body: some View {
-         TextField("Enter Text", text: $text)
-             .clearTextButton(text: $text)
-             .padding(5)
-             .border(.gray)
-     }
- }
- ```
- */
 @available(macOS 11.0, *)
 private struct ClearButton: ViewModifier {
     @Binding var text: String
@@ -39,6 +47,10 @@ private struct ClearButton: ViewModifier {
         self._text = text
     }
 
+    private var showing:Bool {
+        text != ""
+    }
+    
     public func body(content: Content) -> some View {
         HStack {
             content
@@ -46,32 +58,10 @@ private struct ClearButton: ViewModifier {
             // onTapGesture is better than a Button here when adding to a form
             Image(systemName: "multiply.circle.fill")
                 .foregroundColor(.secondary)
-                .opacity(text == "" ? 0 : 1)
+                .opacity(showing ? 1 : 0)
                 .onTapGesture { self.text = "" }
+                .animation(.easeInOut,value: showing)
         }
     }
 }
 
-public extension Extensions.View {
-
-/** Add a clear button to a View. Most useful for TextField
-     
-Button only shows when text is non-nil
-     
- ```
- struct TestView: View {
-     @State var text:String
-     
-     var body: some View {
-         TextField("Enter Text", text: $text)
-             .clearTextButton(text: $text)
-             .padding(5)
-             .border(.gray)
-     }
- }
- ```
-*/
-    func clearTextButton(text:Binding<String>) -> some View {
-            return EmptyView()
-    }
-}

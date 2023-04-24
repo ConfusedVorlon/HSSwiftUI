@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 extension View {
+    
+    /// Sets an expansive background. Particularly useful in Previews
+    /// - Parameter color: color
+    /// - Returns: modified view
     public func fullBackground(color: Color) -> some View {
         modifier(FullBackground(color: color))
     }
@@ -25,15 +29,4 @@ private struct FullBackground: ViewModifier {
             content
         }
     }
-}
-
-
-extension Extensions.View {
-
-        /// Sets an expansive background. Particularly useful in Previews
-        /// - Parameter color: color
-        /// - Returns: modified view
-        public func fullBackground(color: Color) -> some View {
-            EmptyView()
-        }
 }

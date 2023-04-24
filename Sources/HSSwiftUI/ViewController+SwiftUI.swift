@@ -74,40 +74,6 @@ public extension UIViewController {
     }
 }
 
-extension Extensions {
-    
-    public class ViewController{
-        /// Insert a SwiftUI view into a view owned by the controller
-        /// - Parameters:
-        ///   - swiftUIView: The view to insert
-        ///   - inUIView: The UIView to insert in (this doesn't have to be the main view)
-        /// - Returns: the UIHostingController of the swiftUIView
-        public func insert<Content:View>(swiftUIView rootView:Content,
-                                  inUIView container:UIView) -> UIHostingController<Content> {
-            fatalError()
-        }
-        
-        /// Create a UIViewController with a swiftUI view as the first child of the main view
-        /// - Parameter swiftUIView: swiftUIView
-        /// - Returns: the UIViewController
-        public static func with<Content: View>(swiftUIView:Content) -> UIViewController  {
-            fatalError()
-        }
-        
-        /// Build a UIViewController which presents a SwiftUI View
-        ///
-        /// be careful not to strongly retain the viewcontroller reference!
-        /// - Parameter builder: The builder gets a reference to the ViewController.
-        /// This reference is useful for dismissal / presentation / etc
-        ///
-        
-        public convenience init<Content:View>(@ViewBuilder _ builder: @MainActor(UIViewController)->Content) {
-            fatalError()
-        }
-        
-    }
-    
-}
 
 #endif
 

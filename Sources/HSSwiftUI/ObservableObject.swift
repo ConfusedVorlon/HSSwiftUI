@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
+
 public extension ObservableObject {
+    /// Adds republishing support to enable nested ObservableObjects
     /// Send objectWillChange notification when the child sends objectWillChange
     ///
     /// this allows nested ObservableObjects to work with only the parent object being observed by your view
@@ -26,17 +28,3 @@ public extension ObservableObject {
     }
 }
 
-
-public extension Extensions {
-    //Adds republishing support to enable nested ObservableObjects
-    class ObservableObject {
-        /// Send objectWillChange notification when the child sends objectWillChange
-        ///
-        /// this allows nested ObservableObjects to work with only the parent object being observed by your view
-        /// - Parameter child: child ObservableObject
-        /// - Returns: anyCancellable reference (save this)
-        public func republishObservable<Child: ObservableObject>(child: Child) -> AnyCancellable {
-            return AnyCancellable({})
-        }
-    }
-}

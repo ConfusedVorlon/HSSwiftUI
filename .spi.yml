@@ -2,6 +2,8 @@ version: 1
 builder:
   configs:
     - platform: ios
-      documentation_targets: [Target]
+      documentation_targets: [HSSwiftUI]
+      custom_documentation_parameters: [--include-extended-types]
     - platform: macos
-      documentation_targets: [Target]
+      documentation_targets: [HSSwiftUI]
+      custom_documentation_parameters: [--include-extended-types]
