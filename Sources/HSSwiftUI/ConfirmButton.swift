@@ -16,8 +16,8 @@
 import SwiftUI
 import HSHelpers
 
-struct ConfirmButton<Label>: View where Label: View {
-    internal init(
+public struct ConfirmButton<Label>: View where Label: View {
+    public init(
         confirmTitle: LocalizedStringResource,
         confirmMessage: LocalizedStringResource,
         confirmButtonText: LocalizedStringResource,
