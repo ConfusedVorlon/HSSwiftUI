@@ -14,14 +14,14 @@
 //
 
 import SwiftUI
-import HSHelpers
 
+@available(macOS 13, *)
 public struct ConfirmButton<Label>: View where Label: View {
     public init(
         confirmTitle: LocalizedStringResource,
         confirmMessage: LocalizedStringResource,
         confirmButtonText: LocalizedStringResource,
-        action: @escaping MainAction,
+        action: @escaping @MainActor () -> Void,
         label: @escaping () -> Label
     ) {
         self.confirmTitle = confirmTitle
@@ -36,10 +36,10 @@ public struct ConfirmButton<Label>: View where Label: View {
     let confirmTitle: LocalizedStringResource
     let confirmMessage: LocalizedStringResource
     let confirmButtonText: LocalizedStringResource
-    let action: MainAction
+    let action: @MainActor () -> Void
     @ViewBuilder let label: () -> Label
 
-    var body: some View {
+    public var body: some View {
         Button {
             showConfirmAlert = true
         } label: {
@@ -59,15 +59,4 @@ public struct ConfirmButton<Label>: View where Label: View {
     }
 }
 
-#Preview {
-    ConfirmButton(
-        confirmTitle: "Confirm Please",
-        confirmMessage: "This will do stuff",
-        confirmButtonText: "Confirm",
-        action: {
-        }, label:
-            {
-                Text("Delete")
-            }
-    )
-}
+
