@@ -6,12 +6,10 @@
 //  Copyright © 2020 HobbyistSoftware. All rights reserved.
 //
 
-
 import SwiftUI
 
 public extension View {
 
-    
     /// Add a clear button to a View. Most useful for TextField.
     /// Button only shows when text is non-nil
     /// - Parameter text: binding to text that can be cleared
@@ -33,13 +31,13 @@ public extension View {
      }
      ```
      */
-    @available(macOS 11.0, *)
-    func clearTextButton(text:Binding<String>) -> some View {
+    @available(macOS 11.0, tvOS 16.0, *)
+    func clearTextButton(text: Binding<String>) -> some View {
         modifier(ClearButton(text: text))
     }
 }
 
-@available(macOS 11.0, *)
+@available(macOS 11.0, tvOS 16.0, *)
 private struct ClearButton: ViewModifier {
     @Binding var text: String
 
@@ -47,10 +45,10 @@ private struct ClearButton: ViewModifier {
         self._text = text
     }
 
-    private var showing:Bool {
+    private var showing: Bool {
         text != ""
     }
-    
+
     public func body(content: Content) -> some View {
         HStack {
             content
@@ -60,8 +58,7 @@ private struct ClearButton: ViewModifier {
                 .foregroundColor(.secondary)
                 .opacity(showing ? 1 : 0)
                 .onTapGesture { self.text = "" }
-                .animation(.easeInOut,value: showing)
+                .animation(.easeInOut, value: showing)
         }
     }
 }
-

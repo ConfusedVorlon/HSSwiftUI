@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension View {
-    
+
     /// Sets an expansive background. Particularly useful in Previews
     /// - Parameter color: color
     /// - Returns: modified view

@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-
 public extension ObservableObject {
     /// Adds republishing support to enable nested ObservableObjects
     /// Send objectWillChange notification when the child sends objectWillChange
@@ -27,4 +26,3 @@ public extension ObservableObject {
         }
     }
 }
-

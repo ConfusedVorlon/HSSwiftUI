@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 /// Button - but the label viewbuilder is given the button configuration directly
 /// ```
 ///   ButtonBuilder {
@@ -18,18 +17,17 @@ import SwiftUI
 /// ```
 ///
 /// Note that you are fully responsible for the presentation, including any variation when the button is pressed / disabled
-public struct ButtonBuilder<Label:View>: View {
-    
-    public init(action: @escaping ()->Void,
+public struct ButtonBuilder<Label: View>: View {
+
+    public init(action: @escaping () -> Void,
                 label: @escaping (ButtonStyleConfiguration) -> Label) {
         self.action = action
         self.label = label
     }
-    
 
-    public var action:()->Void
+    public var action: () -> Void
     @ViewBuilder public var label: (ButtonStyleConfiguration) -> Label
-      
+
     public var body: some View {
         Button {
             action()
@@ -40,9 +38,9 @@ public struct ButtonBuilder<Label:View>: View {
     }
 }
 
-private struct ConfigButtonStyle<Label:View>: ButtonStyle {
+private struct ConfigButtonStyle<Label: View>: ButtonStyle {
     @ViewBuilder var content: (ButtonStyleConfiguration) -> Label
-    
+
     func makeBody(configuration: Configuration) -> some View {
         content(configuration)
     }
@@ -56,7 +54,7 @@ struct ConfigButton_Previews: PreviewProvider {
         } label: { config in
             Text(config.isPressed ? "Pressed" : "Press Me")
         }
-        .frame(width:300,height:70)
+        .frame(width: 300, height: 70)
         .border(.blue)
         .fullBackground(color: .gray)
 

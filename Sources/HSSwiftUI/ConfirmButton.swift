@@ -5,7 +5,6 @@
 //  Created by Rob Jonson on 02/11/2024.
 //
 
-
 //
 //  ConfirmButton.swift
 //  FreeFallFilms
@@ -15,7 +14,7 @@
 
 import SwiftUI
 
-@available(macOS 13, *)
+@available(macOS 13, iOS 16, tvOS 16, *)
 public struct ConfirmButton<Label>: View where Label: View {
     public init(
         confirmTitle: LocalizedStringResource,
@@ -58,5 +57,3 @@ public struct ConfirmButton<Label>: View where Label: View {
 
     }
 }
-
-

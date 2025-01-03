@@ -8,14 +8,8 @@
 
 // https://finestructure.co/blog/2020/1/20/swiftui-equal-widths-view-constraints
 
-
-
-
-
-
 import Foundation
 import SwiftUI
-
 
 /**
 Read the geometry of a view and pass it up the hierarchy using preferences
@@ -61,14 +55,12 @@ The key attribute defines the type of value that you are measuring
 public struct GeometryPreferenceReader<K: PreferenceKey, V> where K.Value == V {
     public let key: K.Type
     public let value: (GeometryProxy) -> V
-    
+
     public init(key: K.Type, value: @escaping (GeometryProxy) -> V) {
         self.key = key
         self.value = value
     }
 }
-
-
 
 public protocol Preference {}
 
@@ -80,7 +72,7 @@ public struct LatestCGFloat<T: Preference>: PreferenceKey {
         if next == 0 {
             return
         }
-        
+
         value = next ?? value
     }
     public typealias Value = CGFloat?
@@ -90,9 +82,9 @@ public struct LatestCGFloat<T: Preference>: PreferenceKey {
 public struct MaxCGFloat<T: Preference>: PreferenceKey {
     public static var defaultValue: CGFloat? {nil}
     public static func reduce(value: inout Value, nextValue: () -> Value) {
-        guard let next = nextValue(), next != 0 else  { return }
-        //if current value is nil, then use next
-        value = max(next,value ?? next)
+        guard let next = nextValue(), next != 0 else { return }
+        // if current value is nil, then use next
+        value = max(next, value ?? next)
     }
     public typealias Value = CGFloat?
 }
@@ -117,46 +109,42 @@ public struct LatestEdgeInsets<T: Preference>: PreferenceKey {
     public typealias Value = EdgeInsets?
 }
 
-
-
 public extension View {
-    
+
     func assignPreference<K: PreferenceKey>(
         for key: K.Type,
         to binding: Binding<CGFloat?>) -> some View where K.Value == CGFloat? {
-        
+
         return self.onPreferenceChange(key.self) { prefs in
-            //print("\(key) -> \(prefs)")
+            // print("\(key) -> \(prefs)")
             binding.wrappedValue = prefs
         }
     }
-    
+
     func assignPreference<K: PreferenceKey>(
         for key: K.Type,
         to binding: Binding<CGRect?>) -> some View where K.Value == CGRect? {
-        
+
         return self.onPreferenceChange(key.self) { prefs in
-            //print("\(key) -> \(prefs)")
+            // print("\(key) -> \(prefs)")
             binding.wrappedValue = prefs
         }
     }
-    
+
     func assignPreference<K: PreferenceKey>(
         for key: K.Type,
         to binding: Binding<EdgeInsets?>) -> some View where K.Value == EdgeInsets? {
-        
+
         return self.onPreferenceChange(key.self) { prefs in
-            //print("\(key) -> \(prefs)")
+            // print("\(key) -> \(prefs)")
             binding.wrappedValue = prefs
         }
     }
-    
+
     func read<K: PreferenceKey, V>(_ preference: GeometryPreferenceReader<K, V>) -> some View {
         modifier(preference)
     }
 }
-
-
 
 // The view modifier applies a clear background to the view you are observing
 // The background is wrapped in a GeometryReader to actually measure the size

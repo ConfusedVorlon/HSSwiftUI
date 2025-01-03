@@ -6,27 +6,25 @@
 //  Copyright © 2020 HobbyistSoftware. All rights reserved.
 //
 
-//From  https://stackoverflow.com/questions/56471973/how-do-i-create-a-multiline-textfield-in-swiftui
+// From  https://stackoverflow.com/questions/56471973/how-do-i-create-a-multiline-textfield-in-swiftui
 
 #if canImport(UIKit)
 
 import Foundation
 
-
 import SwiftUI
 import UIKit
-
 
 public struct MultilineTextField: View {
 
     private var placeholder: String
     private var onDone: (() -> Void)?
     private var onChange: (() -> Void)?
-    private var customise:((UITextView)->Void)?
+    private var customise: ((UITextView) -> Void)?
 
     @Binding private var text: String
     private var internalText: Binding<String> {
-        Binding<String>(get: { self.text } ) {
+        Binding<String>(get: { self.text }) {
             self.text = $0
             self.showingPlaceholder = $0.isEmpty
         }
@@ -39,7 +37,7 @@ public struct MultilineTextField: View {
                  text: Binding<String>,
                  onDone: (() -> Void)? = nil,
                  onChange: (() -> Void)? = nil,
-                 customise:((UITextView)->Void)? = nil
+                 customise: ((UITextView) -> Void)? = nil
     ) {
         self.placeholder = placeholder
         self.onDone = onDone
@@ -53,7 +51,7 @@ public struct MultilineTextField: View {
         UITextViewWrapper(text: self.internalText,
                           calculatedHeight: $dynamicHeight,
                           onDone: onDone,
-                          onChange:onChange,
+                          onChange: onChange,
                           customise: customise
         )
             .frame(minHeight: dynamicHeight, maxHeight: dynamicHeight)
@@ -71,21 +69,21 @@ public struct MultilineTextField: View {
     }
 }
 
-fileprivate struct UITextViewWrapper: UIViewRepresentable {
+private struct UITextViewWrapper: UIViewRepresentable {
     typealias UIViewType = UITextView
 
     @Binding var text: String
     @Binding var calculatedHeight: CGFloat
     var onDone: (() -> Void)?
     var onChange: (() -> Void)?
-    var customise:((UITextView)->Void)?
-    
+    var customise: ((UITextView) -> Void)?
 
     func makeUIView(context: UIViewRepresentableContext<UITextViewWrapper>) -> UITextView {
         let textField = UITextView()
         textField.delegate = context.coordinator
-
+        #if os(iOS)
         textField.isEditable = true
+        #endif
         textField.font = UIFont.preferredFont(forTextStyle: .body)
         textField.isSelectable = true
         textField.isUserInteractionEnabled = true
@@ -104,7 +102,7 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
             uiView.text = self.text
         }
         if uiView.window != nil, !uiView.isFirstResponder {
-            //This triggers attribute cycle if not dispatched
+            // This triggers attribute cycle if not dispatched
             DispatchQueue.main.async {
                 uiView.becomeFirstResponder()
             }
@@ -156,13 +154,12 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
 
 }
 
-
 #if DEBUG
 struct MultilineTextField_Previews: PreviewProvider {
-    static var test:String = ""//some very very very long description string to be initially wider than screen"
+    static var test: String = ""// some very very very long description string to be initially wider than screen"
     static var testBinding = Binding<String>(get: { test }, set: {
 //        print("New value: \($0)")
-        test = $0 } )
+        test = $0 })
 
     static var previews: some View {
         VStack(alignment: .leading) {
@@ -175,10 +172,9 @@ struct MultilineTextField_Previews: PreviewProvider {
             Spacer()
         }
         .padding()
-        //.previewDevice(.iPhone7)
+        // .previewDevice(.iPhone7)
     }
 }
 #endif
-
 
 #endif

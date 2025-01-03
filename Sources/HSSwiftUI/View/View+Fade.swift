@@ -14,8 +14,8 @@ public extension View {
     /// - Parameter fade: Set to `true` to hide the view. Set to `false` to show the view.
     /// - Parameter shrinkSize: size when hidden or nil to ignore
     /// - Returns: view (or not)
-    func fadeIf(_ fade: Bool, fadedSize:CGSize? = nil) -> some View {
-        modifier(FadeIfModifier(fade: fade,fadedSize: fadedSize))
+    func fadeIf(_ fade: Bool, fadedSize: CGSize? = nil) -> some View {
+        modifier(FadeIfModifier(fade: fade, fadedSize: fadedSize))
     }
 }
 
@@ -28,7 +28,7 @@ private struct FadeIfModifier: ViewModifier {
     fileprivate func body(content: Content) -> some View {
         content
             .opacity(fade ? 0 : 1)
-            .animation(.easeInOut(duration: 0.2),value: fade)
-            .frame(width:fade ? fadedSize?.width : nil, height: fade ? fadedSize?.height : nil)
+            .animation(.easeInOut(duration: 0.2), value: fade)
+            .frame(width: fade ? fadedSize?.width : nil, height: fade ? fadedSize?.height : nil)
     }
 }

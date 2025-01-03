@@ -8,9 +8,6 @@
 import SwiftUI
 import Combine
 
-
-
-
 public extension View {
     /// Sets an environment value for keyboardShowing
     /// Access this in any child view with
@@ -27,7 +24,7 @@ private struct KeyboardShowingEnvironmentKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
-    
+
     /// Apply addKeyboardVisibilityToEnvironment near the top of your view hierarchy to enable this environment key
     var keyboardShowing: Bool {
         get { self[KeyboardShowingEnvironmentKey.self] }
@@ -35,19 +32,19 @@ public extension EnvironmentValues {
     }
 }
 
-private struct KeyboardVisibility:ViewModifier {
-    
-#if os(macOS)
-    
+private struct KeyboardVisibility: ViewModifier {
+
+#if os(macOS) || os(tvOS)
+
     fileprivate func body(content: Content) -> some View {
         content
             .environment(\.keyboardShowing, false)
     }
-    
+
 #else
-    
-    @State var isKeyboardShowing:Bool = false
-    
+
+    @State var isKeyboardShowing: Bool = false
+
     private var keyboardPublisher: AnyPublisher<Bool, Never> {
         Publishers
             .Merge(
@@ -62,7 +59,7 @@ private struct KeyboardVisibility:ViewModifier {
             .debounce(for: .seconds(0.1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
-    
+
     fileprivate func body(content: Content) -> some View {
         content
             .environment(\.keyboardShowing, isKeyboardShowing)
@@ -70,6 +67,6 @@ private struct KeyboardVisibility:ViewModifier {
                 isKeyboardShowing = value
             }
     }
-    
+
 #endif
 }

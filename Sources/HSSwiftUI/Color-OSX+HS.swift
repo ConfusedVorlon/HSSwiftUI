@@ -12,10 +12,8 @@ import Foundation
 import SwiftUI
 import AppKit
 
-
-
 public extension NSColor {
-    var color:Color {
+    var color: Color {
         return Color(self)
     }
 }

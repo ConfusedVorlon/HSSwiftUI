@@ -11,8 +11,7 @@ import SwiftUI
 public extension PreviewLayout {
     /// Convenience initialiser for PreviewLayout
     /// - Parameter fixedSize: size
-    init(fixedSize:CGSize) {
+    init(fixedSize: CGSize) {
         self = PreviewLayout.fixed(width: fixedSize.width, height: fixedSize.height)
     }
 }
-

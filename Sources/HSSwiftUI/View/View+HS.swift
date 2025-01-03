@@ -6,12 +6,11 @@
 //  Copyright © 2020 HobbyistSoftware. All rights reserved.
 //
 
-
 import Foundation
 import SwiftUI
 
 public extension View {
-    
+
     func frame(size: CGSize, alignment: Alignment = .center) -> some View {
         return frame(width: size.width, height: size.height, alignment: alignment)
     }
@@ -25,4 +24,3 @@ public extension View {
     }
 
 }
-
