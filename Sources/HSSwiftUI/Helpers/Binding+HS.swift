@@ -46,7 +46,7 @@ extension Binding {
     ///
     /// When the value of the produced binding is set to `false` this binding's value
     /// is set to `nil`.
-    public func asBool<Wrapped>() -> Binding<Bool> where Value == Wrapped? {
+    public func boundAsBool<Wrapped>() -> Binding<Bool> where Value == Wrapped? {
         return Binding<Bool>(mappedTo: self)
     }
 }
