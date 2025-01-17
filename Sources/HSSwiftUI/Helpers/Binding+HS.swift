@@ -12,19 +12,44 @@ import os.log
 import SwiftUI
 
 extension Binding where Value == Bool {
-    /// Creates a binding by mapping an optional value to a `Bool` that is
-    /// `true` when the value is non-`nil` and `false` when the value is `nil`.
-    ///
-    /// When the value of the produced binding is set to `false` the value
-    /// of `bindingToOptional`'s `wrappedValue` is set to `nil`.
-    ///
-    /// Setting the value of the produce binding to `true` does nothing and
-    /// will log an error.
-    ///
-    /// - parameter bindingToOptional: A `Binding` to an optional value, used to calculate the `wrappedValue`.
-    public init<Wrapped>(mappedTo bindingToOptional: Binding<Wrapped?>) {
+
+
+    // Array version
+    private init<Element>(mappedTo bindingToOptional: Binding<[Element]?>) {
         self.init(
-            get: { bindingToOptional.wrappedValue != nil },
+            get: { bindingToOptional.wrappedValue?.isEmpty == false },
+            set: { newValue in
+                if !newValue {
+                    bindingToOptional.wrappedValue = nil
+                } else {
+                    os_log(.error, "Cannot set to true")
+                }
+            }
+        )
+    }
+
+    // Set version
+    private init<Element: Hashable>(mappedTo bindingToOptional: Binding<Set<Element>?>) {
+        self.init(
+            get: {
+                bindingToOptional.wrappedValue?.isEmpty == false
+            },
+            set: { newValue in
+                if !newValue {
+                    bindingToOptional.wrappedValue = nil
+                } else {
+                    os_log(.error, "Cannot set to true")
+                }
+            }
+        )
+    }
+    
+    // Base version for non-collections
+    private init<Wrapped>(mappedTo bindingToOptional: Binding<Wrapped?>) {
+        self.init(
+            get: {
+                bindingToOptional.wrappedValue != nil
+            },
             set: { newValue in
                 if !newValue {
                     bindingToOptional.wrappedValue = nil
@@ -42,11 +67,32 @@ extension Binding where Value == Bool {
 
 extension Binding {
     /// Returns a binding by mapping this binding's value to a `Bool` that is
-    /// `true` when the value is non-`nil` and `false` when the value is `nil`.
+    /// `true` when the value is non-`nil` and non-empty (for collections) and
+    /// `false` when the value is `nil` or empty.
     ///
     /// When the value of the produced binding is set to `false` this binding's value
     /// is set to `nil`.
     public func boundAsBool<Wrapped>() -> Binding<Bool> where Value == Wrapped? {
+        return Binding<Bool>(mappedTo: self)
+    }
+    
+    /// Returns a binding by mapping this array binding's value to a `Bool` that is
+    /// `true` when the array is non-`nil` and non-empty and `false` when the array
+    /// is `nil` or empty.
+    ///
+    /// When the value of the produced binding is set to `false` this binding's value
+    /// is set to `nil`.
+    public func boundAsBool<Element>() -> Binding<Bool> where Value == [Element]? {
+        return Binding<Bool>(mappedTo: self)
+    }
+    
+    /// Returns a binding by mapping this set binding's value to a `Bool` that is
+    /// `true` when the set is non-`nil` and non-empty and `false` when the set
+    /// is `nil` or empty.
+    ///
+    /// When the value of the produced binding is set to `false` this binding's value
+    /// is set to `nil`.
+    public func boundAsBool<Element: Hashable>() -> Binding<Bool> where Value == Set<Element>? {
         return Binding<Bool>(mappedTo: self)
     }
 }
